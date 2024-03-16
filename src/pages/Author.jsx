@@ -59,7 +59,7 @@ const Author = () => {
                       <div className="profile_name">
                         <h4>
                           {author.authorName}
-                          <span className="profile_username">@{author.username}</span>
+                          <span className="profile_username">@{author.authorName}</span>
                           <span id="wallet" className="profile_wallet">
                             {author.wallet}
                           </span>

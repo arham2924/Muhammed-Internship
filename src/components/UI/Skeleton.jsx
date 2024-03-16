@@ -10,7 +10,7 @@ const Skeleton = ({ width, height, borderRadius }) => {
         borderRadius, 
       }}
     ></div>
-  );
+  ); 
 };
 
 export default Skeleton;

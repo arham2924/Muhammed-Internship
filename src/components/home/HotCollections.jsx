@@ -40,15 +40,49 @@ const HotCollections = () => {
             </div>
           </div>
           {loading ? (
-            <div className="owl-theme">
+            <div className="d-flex flex-wrap justify-content-between align-items-center">
               {[...Array(4)].map((_, index) => (
-                <div className="item" key={index}>
-                  <Skeleton
-                    className="skeleton-box"
-                    width="100%"
-                    height="200px"
-                    borderRadius="8px"
-                  />
+                <div
+                  key={index}
+                  className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4"
+                >
+                  <div className="nft_coll">
+                    <div className="nft_wrap">
+                      <Link to="/item-details">
+                        <div
+                          className="skeleton-box"
+                          style={{ width: "100%", height: "200px" }}
+                        ></div>
+                      </Link>
+                    </div>
+                    <div className="nft_coll_pp">
+                      <Link to="/author">
+                        <div
+                          className="skeleton-box"
+                          style={{
+                            width: "50px",
+                            height: "50px",
+                            borderRadius: "50%",
+                          }}
+                        ></div>
+                      </Link>
+                      <i className="fa fa-check"></i>
+                    </div>
+                    <div className="nft_coll_info">
+                      <Link to="/explore">
+                        <div
+                          className="skeleton-box"
+                          style={{ width: "100px", height: "20px" }}
+                        ></div>
+                      </Link>
+                      <span>
+                        <div
+                          className="skeleton-box"
+                          style={{ width: "60px", height: "20px" }}
+                        ></div>
+                      </span>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
