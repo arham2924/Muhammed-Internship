@@ -6,6 +6,7 @@ import axios from "axios";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
+import Skeleton from "../UI/Skeleton";
 
 const CountdownTimer = ({ expiryDate }) => {
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(expiryDate));
@@ -30,7 +31,7 @@ const CountdownTimer = ({ expiryDate }) => {
   );
 };
 
-const calculateTimeLeft = expiryDate => {
+const calculateTimeLeft = (expiryDate) => {
   if (!expiryDate) {
     return null;
   }
@@ -38,26 +39,33 @@ const calculateTimeLeft = expiryDate => {
   const currentTime = Math.floor(Date.now() / 1000);
   const remainingTimeInSeconds = expiryTimestamp - currentTime;
   if (remainingTimeInSeconds <= 0) {
-    return null; 
+    return null;
   }
   const remainingHours = Math.floor(remainingTimeInSeconds / 3600);
   const remainingMinutes = Math.floor((remainingTimeInSeconds % 3600) / 60);
   const remainingSeconds = Math.floor(remainingTimeInSeconds % 60);
 
-  return { hours: remainingHours, minutes: remainingMinutes, seconds: remainingSeconds };
+  return {
+    hours: remainingHours,
+    minutes: remainingMinutes,
+    seconds: remainingSeconds,
+  };
 };
 
 const NewItems = () => {
   const [collections, setCollections] = useState([]);
   const carouselRef = useRef();
+  const [loading, setLoading] = useState();
 
   useEffect(() => {
+    setLoading(true);
     const fetchData = async () => {
       try {
         const response = await axios.get(
           "https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems"
         );
         setCollections(response.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -76,7 +84,20 @@ const NewItems = () => {
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
-          {collections.length > 0 && (
+          {loading ? ( 
+            <div className="owl-theme">
+              {[...Array(4)].map((_, index) => (
+                <div className="item" key={index}>
+                  <Skeleton
+                    className="skeleton-box"
+                    width="100%"
+                    height="200px"
+                    borderRadius="8px"
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
             <OwlCarousel
               ref={carouselRef}
               className="owl-theme"
@@ -85,14 +106,14 @@ const NewItems = () => {
               nav
               responsive={{
                 0: {
-                  items: 1
+                  items: 1,
                 },
                 600: {
-                  items: 2
+                  items: 2,
                 },
                 1000: {
-                  items: 4
-                }
+                  items: 4,
+                },
               }}
             >
               {collections.map((item) => (
@@ -100,7 +121,7 @@ const NewItems = () => {
                   <div className="nft__item">
                     <div className="author_list_pp">
                       <Link
-                        to={`/author/${item.authorId}`} 
+                        to={`/author/${item.authorId}`}
                         data-bs-toggle="tooltip"
                         data-bs-placement="top"
                         title={`Creator: ${item.creator}`}
