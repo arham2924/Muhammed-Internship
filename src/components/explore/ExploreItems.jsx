@@ -23,7 +23,7 @@ const ExploreItems = () => {
       }
     };
 
-    fetchData();
+    fetchData(); 
   }, []);
 
   const loadMoreItems = () => {
@@ -76,7 +76,7 @@ const ExploreItems = () => {
               <div className="nft__item">
                 <div className="author_list_pp">
                   <Link
-                    to="/author"
+                    to={`/author/${collection.authorId}`}
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
                   >
