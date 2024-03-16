@@ -13,7 +13,7 @@ const Author = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems`
+          `https://us-central1-nft-cloud-functions.cloudfunctions.net/topSellers`
         );
         const selectedAuthor = response.data.find((item) => item.authorId === Number(authorId));
         setAuthor(selectedAuthor);
@@ -58,7 +58,7 @@ const Author = () => {
                       <i className="fa fa-check"></i>
                       <div className="profile_name">
                         <h4>
-                          {author.name}
+                          {author.authorName}
                           <span className="profile_username">@{author.username}</span>
                           <span id="wallet" className="profile_wallet">
                             {author.wallet}

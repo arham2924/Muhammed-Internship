@@ -13,7 +13,9 @@ const ItemDetails = () => {
         const response = await axios.get(
           `https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems`
         );
-        const selectedItem = response.data.find((item) => item.nftId === Number(itemId));
+        const selectedItem = response.data.find(
+          (item) => item.nftId === Number(itemId)
+        );
         setItem(selectedItem);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -24,7 +26,7 @@ const ItemDetails = () => {
   }, [itemId]);
 
   if (!item) {
-    return <div>Loading...</div>;
+    return null;
   }
 
   return (

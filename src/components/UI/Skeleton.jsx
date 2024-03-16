@@ -7,7 +7,7 @@ const Skeleton = ({ width, height, borderRadius }) => {
       style={{
         width,
         height,
-        borderRadius,
+        borderRadius, 
       }}
     ></div>
   );
