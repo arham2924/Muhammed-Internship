@@ -7,50 +7,7 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import Skeleton from "../UI/Skeleton";
-
-const CountdownTimer = ({ expiryDate }) => {
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(expiryDate));
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const remainingTime = calculateTimeLeft(expiryDate);
-      setTimeLeft(remainingTime);
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [expiryDate]);
-
-  return (
-    <div className="de_countdown">
-      {timeLeft && (
-        <>
-          {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
-        </>
-      )}
-    </div>
-  );
-};
-
-const calculateTimeLeft = (expiryDate) => {
-  if (!expiryDate) {
-    return null;
-  }
-  const expiryTimestamp = expiryDate / 1000;
-  const currentTime = Math.floor(Date.now() / 1000);
-  const remainingTimeInSeconds = expiryTimestamp - currentTime;
-  if (remainingTimeInSeconds <= 0) {
-    return null;
-  }
-  const remainingHours = Math.floor(remainingTimeInSeconds / 3600);
-  const remainingMinutes = Math.floor((remainingTimeInSeconds % 3600) / 60);
-  const remainingSeconds = Math.floor(remainingTimeInSeconds % 60);
-
-  return {
-    hours: remainingHours,
-    minutes: remainingMinutes,
-    seconds: remainingSeconds,
-  };
-};
+import CountdownTimer from "./CountdownTimer";
 
 const NewItems = () => {
   const [collections, setCollections] = useState([]);
@@ -84,16 +41,18 @@ const NewItems = () => {
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
-          {loading ? ( 
-            <div className="owl-theme">
+          {loading ? (
+            <div className="d-flex flex-wrap justify-content-between align-items-center">
               {[...Array(4)].map((_, index) => (
-                <div className="item" key={index}>
-                  <Skeleton
-                    className="skeleton-box"
-                    width="100%"
-                    height="200px"
-                    borderRadius="8px"
-                  />
+                <div key={index} className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
+                  <div className="item">
+                    <Skeleton
+                      className="skeleton-box"
+                      width="100%"
+                      height="200px"
+                      borderRadius="8px"
+                    />
+                  </div>
                 </div>
               ))}
             </div>

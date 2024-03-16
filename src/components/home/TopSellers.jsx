@@ -6,19 +6,19 @@ import Skeleton from "../UI/Skeleton";
 
 const TopSellers = () => {
   const [collections, setCollections] = useState([]);
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true)
     const fetchData = async () => {
       try {
         const response = await axios.get(
           "https://us-central1-nft-cloud-functions.cloudfunctions.net/topSellers"
         );
         setCollections(response.data);
-        setLoading(false)
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setLoading(false);
       }
     };
 
@@ -37,39 +37,51 @@ const TopSellers = () => {
           </div>
           <div className="col-md-12">
             {loading ? (
-               <div className="owl-theme">
-               {[...Array(12)].map((_, index) => (
-                 <div className="author_list" key={index}>
-                   <Skeleton
-                     className="skeleton-box"
-                     width="100%"
-                     height="200px"
-                     borderRadius="8px"
-                   />
-                 </div>
-               ))}
-             </div>
+              <div className="row">
+                {[...Array(12)].map((_, index) => (
+                  <div key={index} className="col-md-3 col-sm-6 mb-4">
+                    <li>
+                      <div className="author_list_pp">
+                        <Link to="/author">
+                          <Skeleton
+                            height={"50px"}
+                            width={"50px"}
+                            borderRadius={"50%"}
+                          />
+                          <i className="fa fa-check"></i>
+                        </Link>
+                      </div>
+                      <div className="author_list_info">
+                        <Skeleton width={"100px"} />
+                        <Skeleton width={"50px"} />
+                      </div>
+                    </li>
+                  </div>
+                ))}
+              </div>
             ) : (
-            <ol className="author_list">
-              {collections.map((seller, index) => (
-                <li key={index}>
-                  <div className="author_list_pp">
-                    <Link to={`/author/${seller.authorId}`}>
-                      <img
-                        className="lazy pp-author"
-                        src={seller.authorImage || AuthorImage}
-                        alt=""
-                      />
-                      <i className="fa fa-check"></i>
-                    </Link>
-                  </div>
-                  <div className="author_list_info">
-                    <Link to={`/author/${seller.authorId}`}>{seller.authorName}</Link>
-                    <span>{seller.price} ETH</span>
-                  </div>
-                </li>
-              ))}
-            </ol>
+              <ol className="author_list">
+                {collections.map((seller, index) => (
+                  <li key={index}>
+                    <div className="author_list_pp">
+                      <Link to={`/author/${seller.authorId}`}>
+                        <img
+                          className="lazy pp-author"
+                          src={seller.authorImage || AuthorImage}
+                          alt=""
+                        />
+                        <i className="fa fa-check"></i>
+                      </Link>
+                    </div>
+                    <div className="author_list_info">
+                      <Link to={`/author/${seller.authorId}`}>
+                        {seller.authorName}
+                      </Link>
+                      <span>{seller.price} ETH</span>
+                    </div>
+                  </li>
+                ))}
+              </ol>
             )}
           </div>
         </div>
