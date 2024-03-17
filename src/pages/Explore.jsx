@@ -5,6 +5,7 @@ import ExploreItems from "../components/explore/ExploreItems";
 import axios from "axios";
 
 const Explore = () => {
+  // any comment
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -24,7 +25,7 @@ const Explore = () => {
             <div className="container">
               <div className="row">
                 <div className="col-md-12 text-center">
-                  <h1>Explore</h1>
+                  <h1 data-aos="zoom-in" data-aos-duration="1000">Explore</h1>
                 </div>
                 <div className="clearfix"></div>
               </div>
@@ -34,7 +35,7 @@ const Explore = () => {
 
         <section aria-label="section">
           <div className="container">
-            <div className="row">
+            <div className="row" data-aos="zoom-in" data-aos-duration="1000">
               <ExploreItems />
             </div>
           </div>

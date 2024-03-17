@@ -37,7 +37,7 @@ const NewItems = () => {
         <div className="row">
           <div className="col-lg-12">
             <div className="text-center">
-              <h2>New Items</h2>
+              <h2 data-aos="zoom-in" data-aos-duration="1000">New Items</h2>
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
@@ -76,7 +76,7 @@ const NewItems = () => {
               }}
             >
               {collections.map((item) => (
-                <div className="item" key={item.id}>
+                <div className="item" key={item.id} data-aos="zoom-in" data-aos-duration="1500">
                   <div className="nft__item">
                     <div className="author_list_pp">
                       <Link
